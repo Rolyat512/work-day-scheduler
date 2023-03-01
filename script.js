@@ -1,31 +1,43 @@
-let saveButton = document.querySelector(".saveBtn");
+const main = document.querySelector('main');
+currentDay.innerHTML =` <h4>${new Date().toLocaleString()}</h4>`;
+let store = localStorage.task ? JSON.parse(localStorage.task) : [];
 
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+const handleStore = () => {
+    if(!store.length) return;
 
-saveButton.on('click', function (){
 
-})
+    // fix this 
+    store.forEach((task,i) => {
+        console.log(i,task);
+        $('textarea').eq(i).text(task);
 
-$(function () {
+    });
+};
 
-    // TODO: Add a listener for click events on the save button. This code should
-    // use the id in the containing time-block as a key to save the user input in
-    // local storage. HINT: What does `this` reference in the click listener
-    // function? How can DOM traversal be used to get the "hour-x" id of the
-    // time-block containing the button that was clicked? How might the id be
-    // useful when saving the description in local storage?
-    //
-    // TODO: Add code to apply the past, present, or future class to each time
-    // block by comparing the id to the current hour. HINTS: How can the id
-    // attribute of each time-block be used to conditionally add or remove the
-    // past, present, and future classes? How can Day.js be used to get the
-    // current hour in 24-hour time?
-    //
-    // TODO: Add code to get any user input that was saved in localStorage and set
-    // the values of the corresponding textarea elements. HINT: How can the id
-    // attribute of each time-block be used to do this?
-    //
-    // TODO: Add code to display the current date in the header of the page.
-  });
+handleStore();
+
+
+const hours = ['8:00am','9:00am','10:00am','11:00am','12:00pm','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm'];
+
+hours.forEach((hour, i) => {
+    let rH = i+8;
+    let cH = new Date().getHours;
+
+    main.innerHTML +=`
+        <div class="row time-block ${ rH<cH ? 'past' : rH>cH ? 'future' : 'present' }">
+        <div class="col-2 col-md-1 hour text-center py-3">${hour}</div>
+        <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
+        <button class="btn saveBtn col-2 col-md-1" aria-label="save">
+        <i class="fas fa-save" aria-hidden="true"></i>
+        </button>
+    </div>`;
+});
+
+const handleSave = () => {
+    store = []; 
+    $("textarea").each((i,obj) => store.push(obj.value));
+    localStorage.task = JSON.stringify(store);
+
+}
+
+$(".saveBtn").on('click', handleSave);
