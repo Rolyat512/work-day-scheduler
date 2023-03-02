@@ -2,6 +2,7 @@ const main = document.querySelector('main');
 currentDay.innerHTML =` <h4>${new Date().toLocaleString()}</h4>`;
 let store = localStorage.task ? JSON.parse(localStorage.task) : [];
 
+
 const handleStore = () => {
     if(!store.length) return;
 
@@ -10,6 +11,7 @@ const handleStore = () => {
     store.forEach((task,i) => {
         console.log(i,task);
         $('textarea').eq(i).text(task);
+        // maybe try getItem instead of text
 
     });
 };
