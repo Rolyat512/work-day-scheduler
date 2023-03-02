@@ -13,7 +13,7 @@ daily planner
 
 * It is done when you can refresh the page and the data you previously entered still remains. 
 
-## Screenshot 
+## Screenshots
 
 <!-- Timer -->
 
